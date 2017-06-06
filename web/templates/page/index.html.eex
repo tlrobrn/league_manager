@@ -3,34 +3,31 @@
   <p class="lead">A productive web framework that<br />does not compromise speed and maintainability.</p>
 </div>
 
-<div class="row marketing">
-  <div class="col-lg-6">
-    <h4>Resources</h4>
-    <ul>
-      <li>
-        <a href="http://phoenixframework.org/docs/overview">Guides</a>
-      </li>
-      <li>
-        <a href="https://hexdocs.pm/phoenix">Docs</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-    </ul>
-  </div>
-
-  <div class="col-lg-6">
-    <h4>Help</h4>
-    <ul>
-      <li>
-        <a href="http://groups.google.com/group/phoenix-talk">Mailing list</a>
-      </li>
-      <li>
-        <a href="http://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on freenode IRC</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">@elixirphoenix</a>
-      </li>
-    </ul>
-  </div>
-</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Team</th>
+      <th>Wins</th>
+      <th>Losses</th>
+      <th>Draws</th>
+      <th>Goals For</th>
+      <th>Goals Against</th>
+      <th>Goal Differential</th>
+      <th>Points</th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for record <- @records do %>
+    <tr>
+      <td><%= record.team_name %></td>
+      <td><%= record.wins %></td>
+      <td><%= record.losses %></td>
+      <td><%= record.draws %></td>
+      <td><%= record.goals_for %></td>
+      <td><%= record.goals_against %></td>
+      <td><%= record.goal_differential %></td>
+      <td><%= record.points %></td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
