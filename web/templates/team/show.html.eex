@@ -1,0 +1,14 @@
+<h2><%= @team.name %></h2>
+
+<ul>
+
+  <%= for player <- @team.players do %>
+    <li>
+      <%= player.first_name %> <%= player.last_name %>
+    </li>
+  <% end %>
+
+</ul>
+
+<%= link "Edit", to: team_path(@conn, :edit, @team) %>
+<%= link "Back", to: team_path(@conn, :index) %>
