@@ -1,33 +1,50 @@
-<div class="jumbotron">
-  <h2><%= gettext "Welcome to %{name}", name: "Phoenix!" %></h2>
-  <p class="lead">A productive web framework that<br />does not compromise speed and maintainability.</p>
+<div class="row">
+  <div class="col-md-12">
+    <h3>Rankings</h3>
+    <div class="table-responsive">
+      <table class="table table-condensed table-striped">
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Wins</th>
+            <th>Losses</th>
+            <th>Draws</th>
+            <th>Goals For</th>
+            <th>Goals Against</th>
+            <th>Goal Differential</th>
+            <th>Points</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= for record <- @records do %>
+            <tr>
+              <td><%= link(record.team_name, to: team_path(@conn, :show, record.team_id)) %></td>
+              <td><%= record.wins %></td>
+              <td><%= record.losses %></td>
+              <td><%= record.draws %></td>
+              <td><%= record.goals_for %></td>
+              <td><%= record.goals_against %></td>
+              <td><%= record.goal_differential %></td>
+              <td><%= record.points %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Team</th>
-      <th>Wins</th>
-      <th>Losses</th>
-      <th>Draws</th>
-      <th>Goals For</th>
-      <th>Goals Against</th>
-      <th>Goal Differential</th>
-      <th>Points</th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for record <- @records do %>
-    <tr>
-      <td><%= record.team_name %></td>
-      <td><%= record.wins %></td>
-      <td><%= record.losses %></td>
-      <td><%= record.draws %></td>
-      <td><%= record.goals_for %></td>
-      <td><%= record.goals_against %></td>
-      <td><%= record.goal_differential %></td>
-      <td><%= record.points %></td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+<hr/>
+
+<div class="row">
+  <div class="col-md-12">
+    <%= if length(@games) > 0 do %>
+      <h3> Schedule </h3>
+      <%= for game <- @games do %>
+        <%= game.home_team.name %> vs <%= game.away_team.name %>
+      <% end %>
+    <% else %>
+      <%= link("Schedule Season", to: page_path(@conn, :schedule), class: "btn" ) %>
+    <% end %>
+  </div>
+</div>

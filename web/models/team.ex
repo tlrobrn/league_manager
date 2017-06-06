@@ -22,8 +22,8 @@ defmodule LeagueManager.Team do
   end
 
   defmodule Record do
-    @enforce_keys [:team_name]
-    defstruct team_name: "", wins: 0, losses: 0, draws: 0, goals_for: 0, goals_against: 0, goal_differential: 0, points: 0
+    @enforce_keys [:team_id, :team_name]
+    defstruct team_id: nil, team_name: nil, wins: 0, losses: 0, draws: 0, goals_for: 0, goals_against: 0, goal_differential: 0, points: 0
   end
 
   def records do
@@ -41,6 +41,7 @@ defmodule LeagueManager.Team do
       records.draws + 3 * records.wins AS points
     FROM (
       SELECT
+        teams.id AS team_id,
         teams.name AS team_name,
         SUM(CASE WHEN home_games.home_score > home_games.away_score THEN 1 ELSE 0 END) + SUM(CASE WHEN away_games.away_score > away_games.home_score THEN 1 ELSE 0 END) AS wins,
         SUM(CASE WHEN home_games.home_score < home_games.away_score THEN 1 ELSE 0 END) + SUM(CASE WHEN away_games.away_score < away_games.home_score THEN 1 ELSE 0 END) AS losses,
@@ -50,13 +51,13 @@ defmodule LeagueManager.Team do
       FROM teams
       LEFT OUTER JOIN games AS home_games ON teams.id = home_games.home_team_id
       LEFT OUTER JOIN games AS away_games ON teams.id = away_games.away_team_id
-      GROUP BY teams.name
+      GROUP BY teams.id, teams.name
     ) records
     ORDER BY
       points DESC,
-      wins DESC,
       goal_differential DESC,
-      goals_for DESC
+      goals_for DESC,
+      wins DESC
     """
   end
 end

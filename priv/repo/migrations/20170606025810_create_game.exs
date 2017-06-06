@@ -12,8 +12,8 @@ defmodule LeagueManager.Repo.Migrations.CreateGame do
     end
     create index(:games, [:home_team_id])
     create index(:games, [:away_team_id])
-    create constraint(:games, :positive_home_score, check: "home_score > 0")
-    create constraint(:games, :positive_away_score, check: "away_score > 0")
+    create constraint(:games, :positive_home_score, check: "home_score >= 0")
+    create constraint(:games, :positive_away_score, check: "away_score >= 0")
 
   end
 end
