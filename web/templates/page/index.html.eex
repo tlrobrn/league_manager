@@ -52,11 +52,11 @@
             <tbody>
               <tr>
                 <td><%= game.home_team.name %></td>
-                <td><%= game.home_score || '-' %></td>
+                <td class="text-center"><%= game.home_score || '-' %></td>
               </tr>
               <tr>
                 <td><%= game.away_team.name %></td>
-                <td><%= game.away_score ||  '-' %></td>
+                <td class="text-center"><%= game.away_score ||  '-' %></td>
               </tr>
             </tbody>
           </table>
