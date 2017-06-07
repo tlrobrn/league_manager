@@ -15,4 +15,8 @@ defmodule LeagueManager.PageController do
   def about(conn, _params) do
     render conn, "about.html"
   end
+
+  def rules(conn, _params) do
+    render conn, "rules.html"
+  end
 end

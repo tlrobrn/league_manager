@@ -14,6 +14,7 @@ defmodule LeagueManager.Router do
 
     get "/", PageController, :index
     get "/about", PageController, :about
+    get "/rules", PageController, :rules
     get "/register", TeamController, :new
     resources "/games", GameController, only: [:index, :edit, :update]
     post "/schedule", PageController, :schedule
