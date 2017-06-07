@@ -1,1 +1,10 @@
-/* This file is for your main application css. */
+.logo {
+  width: 64px;
+  height: 64px;
+  display: inline-block;
+  margin-bottom: 1em;
+  background-image: url("/images/foosball.svg");
+  background-size: 64px;
+}
+
+body { font-family: 'Rubik', sans-serif; }

@@ -11,4 +11,8 @@ defmodule LeagueManager.PageController do
     LeagueManager.ScheduleService.create_schedule()
     redirect(conn, to: page_path(conn, :index))
   end
+
+  def about(conn, _params) do
+    render conn, "about.html"
+  end
 end

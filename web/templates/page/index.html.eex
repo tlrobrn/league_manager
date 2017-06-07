@@ -5,27 +5,31 @@
       <table class="table table-condensed table-striped">
         <thead>
           <tr>
+            <th class="text-center">#</th>
             <th>Team</th>
-            <th>Wins</th>
-            <th>Losses</th>
-            <th>Draws</th>
-            <th>Goals For</th>
-            <th>Goals Against</th>
-            <th>Goal Differential</th>
-            <th>Points</th>
+            <th class="text-center">MP</th>
+            <th class="text-center">W</th>
+            <th class="text-center">L</th>
+            <th class="text-center">D</th>
+            <th class="text-center">GF</th>
+            <th class="text-center">GA</th>
+            <th class="text-center">GD</th>
+            <th class="text-center">PTS</th>
           </tr>
         </thead>
         <tbody>
-          <%= for record <- @records do %>
+          <%= for {record, position} <- Stream.with_index(@records, 1) do %>
             <tr>
+              <td class="text-center"><%= position %></td>
               <td><%= link(record.team_name, to: team_path(@conn, :show, record.team_id)) %></td>
-              <td><%= record.wins %></td>
-              <td><%= record.losses %></td>
-              <td><%= record.draws %></td>
-              <td><%= record.goals_for %></td>
-              <td><%= record.goals_against %></td>
-              <td><%= record.goal_differential %></td>
-              <td><%= record.points %></td>
+              <td class="text-center"><%= record.matches_played %></td>
+              <td class="text-center"><%= record.wins %></td>
+              <td class="text-center"><%= record.losses %></td>
+              <td class="text-center"><%= record.draws %></td>
+              <td class="text-center"><%= record.goals_for %></td>
+              <td class="text-center"><%= record.goals_against %></td>
+              <td class="text-center"><%= record.goal_differential %></td>
+              <td class="text-center"><%= record.points %></td>
             </tr>
           <% end %>
         </tbody>
@@ -38,13 +42,31 @@
 
 <div class="row">
   <div class="col-md-12">
-    <%= if length(@games) > 0 do %>
-      <h3> Schedule </h3>
+    <% game_count = length(@games) %>
+    <%= if game_count > 0 do %>
+      <h3> Games </h3>
+      <% col_size = div(12, game_count) %>
       <%= for game <- @games do %>
-        <%= game.home_team.name %> vs <%= game.away_team.name %>
-      <% end %>
+        <div class="col-md-<%= col_size %>">
+          <table class="table table-condensed table-bordered">
+            <tbody>
+              <tr>
+                <td><%= game.home_team.name %></td>
+                <td><%= game.home_score || '-' %></td>
+              </tr>
+              <tr>
+                <td><%= game.away_team.name %></td>
+                <td><%= game.away_score ||  '-' %></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    <% end %>
     <% else %>
-      <%= link("Schedule Season", to: page_path(@conn, :schedule), class: "btn" ) %>
+      <ul class="nav nav-pills">
+        <li><%= link("Register Team", to: team_path(@conn, :new), method: :post, class: "btn btn-default btn-md") %></li>
+        <li><%= link("Schedule Season", to: page_path(@conn, :schedule), method: :post, data: [confirm: "This closes registration!"], class: "btn btn-warning btn-md") %></li>
+      </ul>
     <% end %>
   </div>
 </div>

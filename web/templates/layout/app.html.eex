@@ -7,8 +7,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>LeagueManager</title>
+    <title>Summer League</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <link rel="icon" type="image/svg" href="<%= static_path(@conn, "/images/foosball.svg") %>">
+    <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
   </head>
 
   <body>
@@ -17,7 +19,8 @@
         <nav role="navigation">
           <ul class="nav nav-pills pull-right">
             <li><a href="<%= page_path(@conn, :index) %>">Home</a></li>
-            <li><a href="<%= team_path(@conn, :new) %>">Register</a></li>
+            <li><a href="<%= team_path(@conn, :index) %>">Teams</a></li>
+            <li><a href="<%= page_path(@conn, :index) %>">Schedule</a></li>
           </ul>
         </nav>
         <span class="logo"></span>

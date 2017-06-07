@@ -17,8 +17,9 @@ defmodule LeagueManager.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    get "/register", TeamController, :new
-    get "/schedule", PageController, :schedule
+    get "/about", PageController, :about
+    post "/register", TeamController, :new
+    post "/schedule", PageController, :schedule
     resources "/teams", TeamController
   end
 

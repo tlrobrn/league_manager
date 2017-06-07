@@ -25,4 +25,4 @@
   </tbody>
 </table>
 
-<%= link "Register", to: team_path(@conn, :new) %>
+<%= link "Register", to: team_path(@conn, :new), method: :post %>

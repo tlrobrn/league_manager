@@ -6,8 +6,11 @@ defmodule LeagueManager.ScheduleService do
     [pinned_team | teams] = Team |> Repo.all
     teams = pad_teams(teams)
     rounds = length(teams)
-    schedule_games(pinned_team, teams, 1, rounds)
-    schedule_games(pinned_team, teams, 1, rounds, rounds, true)
+
+    Repo.transaction fn ->
+      schedule_games(pinned_team, teams, 1, rounds)
+      schedule_games(pinned_team, teams, 1, rounds, rounds, true)
+    end
   end
 
   defp pad_teams(teams) when rem(length(teams), 2) == 0, do: [nil | teams]
