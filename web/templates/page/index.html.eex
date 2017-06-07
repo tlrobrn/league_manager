@@ -49,6 +49,9 @@
       <%= for game <- @games do %>
         <div class="col-md-<%= col_size %>">
           <table class="table table-condensed table-bordered">
+            <%= if is_nil(game.home_score) || is_nil(game.away_score) do %>
+              <caption class="caption-below"><%= link("Report Score", to: game_path(@conn, :edit, game)) %></caption>
+            <% end %>
             <tbody>
               <tr>
                 <td><%= game.home_team.name %></td>
