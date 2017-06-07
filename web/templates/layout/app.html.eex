@@ -22,6 +22,7 @@
             <li><a href="<%= team_path(@conn, :index) %>">Teams</a></li>
             <li><a href="<%= game_path(@conn, :index) %>">Schedule</a></li>
             <li><a href="<%= page_path(@conn, :rules) %>">Rules</a></li>
+            <li><a href="<%= page_path(@conn, :about) %>">Credits</a></li>
           </ul>
         </nav>
         <span class="logo"></span>
