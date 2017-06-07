@@ -1,8 +1,10 @@
 defmodule LeagueManager.Team do
   use LeagueManager.Web, :model
+  use Arc.Ecto.Schema
 
   schema "teams" do
     field :name, :string
+    field :logo, LeagueManager.Logo.Type
     has_many :players, LeagueManager.Player, on_delete: :nilify_all
     has_many :home_games, LeagueManager.Game, on_delete: :delete_all, foreign_key: :home_team_id
     has_many :away_games, LeagueManager.Game, on_delete: :delete_all, foreign_key: :away_team_id
@@ -17,6 +19,7 @@ defmodule LeagueManager.Team do
     struct
     |> cast(params, [:name])
     |> cast_assoc(:players, required: true)
+    |> cast_attachments(params, [:logo])
     |> validate_required([:name])
     |> unique_constraint(:name, message: "Team name already taken")
   end
@@ -44,7 +47,7 @@ defmodule LeagueManager.Team do
   end
 
   def record(%__MODULE__{id: id}) do
-    records |> Enum.find(&(&1.team_id == id))
+    records() |> Enum.find(&(&1.team_id == id))
   end
 
   def records do
