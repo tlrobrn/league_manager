@@ -1,6 +1,5 @@
 defmodule LeagueManager.ScheduleService do
   alias LeagueManager.{Game, Repo, Team}
-  require IEx
 
   def create_schedule do
     [pinned_team | teams] = Team |> Repo.all
