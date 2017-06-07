@@ -1,0 +1,28 @@
+<h2>Games</h2>
+
+<%= for {games_in_round, round} <- games_per_round(@games) do %>
+  <table class="table table-condensed table-striped">
+    <caption>Round <%= round %></caption>
+    <thead>
+      <tr>
+        <th class="text-right">Home</th>
+        <th></th>
+        <th class="text-left">Away</th>
+        <th class="text-center">Score</th>
+        <th></th>
+      </tr>
+      <tbody>
+        <%= for game <- games_in_round do %>
+          <tr>
+            <td class="text-right"><%= game.home_team.name %></td>
+            <td class="text-center">vs</td>
+            <td class="text-left"><%= game.away_team.name %></td>
+            <td class="text-center"><%= game.home_score %> - <%= game.away_score %></td>
+            <td class="text-right">
+              <%= link "Edit", to: game_path(@conn, :edit, game), class: "btn btn-default btn-xs" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+  </table>
+<% end %>

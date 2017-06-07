@@ -20,7 +20,7 @@
           <ul class="nav nav-pills pull-right">
             <li><a href="<%= page_path(@conn, :index) %>">Home</a></li>
             <li><a href="<%= team_path(@conn, :index) %>">Teams</a></li>
-            <li><a href="<%= page_path(@conn, :index) %>">Schedule</a></li>
+            <li><a href="<%= game_path(@conn, :index) %>">Schedule</a></li>
           </ul>
         </nav>
         <span class="logo"></span>

@@ -64,7 +64,7 @@
     <% end %>
     <% else %>
       <ul class="nav nav-pills">
-        <li><%= link("Register Team", to: team_path(@conn, :new), method: :post, class: "btn btn-default btn-md") %></li>
+        <li><%= link("Register Team", to: team_path(@conn, :new), class: "btn btn-default btn-md") %></li>
         <li><%= link("Schedule Season", to: page_path(@conn, :schedule), method: :post, data: [confirm: "This closes registration!"], class: "btn btn-warning btn-md") %></li>
       </ul>
     <% end %>

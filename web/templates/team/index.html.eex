@@ -1,6 +1,6 @@
-<h2>Listing teams</h2>
+<h2>Teams</h2>
 
-<table class="table">
+<table class="table table-condensed table-striped">
   <thead>
     <tr>
       <th>Name</th>
@@ -16,13 +16,12 @@
       <td><%= player_names(team) %></td>
 
       <td class="text-right">
-        <%= link "Show", to: team_path(@conn, :show, team), class: "btn btn-default btn-xs" %>
+        <%= link "Details", to: team_path(@conn, :show, team), class: "btn btn-default btn-xs" %>
         <%= link "Edit", to: team_path(@conn, :edit, team), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: team_path(@conn, :delete, team), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
 
-<%= link "Register", to: team_path(@conn, :new), method: :post %>
+<%= link "Register", to: team_path(@conn, :new) %>
