@@ -21,9 +21,24 @@ defmodule LeagueManager.Team do
     |> unique_constraint(:name, message: "Team name already taken")
   end
 
+  def games(struct) do
+    team = LeagueManager.Repo.preload(struct, [home_games: :away_team, away_games: :home_team])
+    home_data = team.home_games
+    |> Stream.map(fn game -> {game.round, "vs", game.away_team.name, game.home_score, game.away_score} end)
+
+    away_data = team.away_games
+    |> Stream.map(fn game -> {game.round, "@", game.home_team.name, game.away_score, game.home_score} end)
+
+    Stream.concat(home_data, away_data) |> Enum.sort_by(fn {round, _, _, _, _} -> round end)
+  end
+
   defmodule Record do
     @enforce_keys [:team_id, :team_name]
     defstruct team_id: nil, team_name: nil, matches_played: 0, wins: 0, losses: 0, draws: 0, goals_for: 0, goals_against: 0, goal_differential: 0, points: 0
+  end
+
+  def record(%__MODULE__{id: id}) do
+    records |> Enum.find(&(&1.team_id == id))
   end
 
   def records do

@@ -28,7 +28,9 @@ defmodule LeagueManager.TeamController do
 
   def show(conn, %{"id" => id}) do
     team = Repo.get!(Team, id) |> Repo.preload(:players)
-    render(conn, "show.html", team: team)
+    record = Team.record(team)
+    games = Team.games(team)
+    render(conn, "show.html", team: team, record: record, games: games)
   end
 
   def edit(conn, %{"id" => id}) do
