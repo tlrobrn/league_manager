@@ -57,6 +57,19 @@ defmodule LeagueManager.Team do
     rows |> Stream.map(&struct!(Record, Enum.zip(columns, &1)))
   end
 
+  def records_with_teams do
+    records = records()
+    team_ids = records |> Enum.map(&(&1.team_id))
+    teams = __MODULE__
+    |> where([t], t.id in ^team_ids)
+    |> LeagueManager.Repo.all
+    |> Stream.map(&({&1.id, &1}))
+    |> Enum.into(%{})
+
+    records
+    |> Stream.map(fn record -> {teams[record.team_id], record} end)
+  end
+
   defp record_query do
     """
     WITH home_records AS (

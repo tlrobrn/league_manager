@@ -2,7 +2,7 @@ defmodule LeagueManager.PageController do
   use LeagueManager.Web, :controller
 
   def index(conn, _params) do
-    records = LeagueManager.Team.records()
+    records = LeagueManager.Team.records_with_teams()
     games = LeagueManager.Game.current_games()
     render conn, "index.html", records: records, games: games
   end

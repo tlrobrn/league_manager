@@ -3,6 +3,7 @@
 <table class="table table-condensed table-striped">
   <thead>
     <tr>
+      <th></th>
       <th>Name</th>
       <th>Players</th>
 
@@ -12,6 +13,9 @@
   <tbody>
 <%= for team <- @teams do %>
     <tr>
+      <td>
+        <img src="<%= LeagueManager.Logo.url({team.logo, team}) %>" height="32" width="32" alt="" />
+      </td>
       <td><%= team.name %></td>
       <td><%= player_names(team) %></td>
 
