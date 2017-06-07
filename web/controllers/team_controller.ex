@@ -4,7 +4,7 @@ defmodule LeagueManager.TeamController do
   alias LeagueManager.{Player, Team}
 
   def index(conn, _params) do
-    teams = Repo.all(Team) |> Repo.preload(:players)
+    teams = Team.sorted_by_name_with_players() |> Repo.all
     render(conn, "index.html", teams: teams)
   end
 

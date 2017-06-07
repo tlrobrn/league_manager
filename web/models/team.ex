@@ -21,6 +21,12 @@ defmodule LeagueManager.Team do
     |> unique_constraint(:name, message: "Team name already taken")
   end
 
+  def sorted_by_name_with_players do
+    __MODULE__
+    |> order_by([t], asc: t.name)
+    |> preload(:players)
+  end
+
   def games(struct) do
     team = LeagueManager.Repo.preload(struct, [home_games: :away_team, away_games: :home_team])
     home_data = team.home_games
