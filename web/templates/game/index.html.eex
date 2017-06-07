@@ -1,4 +1,4 @@
-<h2>Games</h2>
+<h2>Schedule</h2>
 
 <%= for {games_in_round, round} <- games_per_round(@games) do %>
   <table class="table table-condensed table-striped">
