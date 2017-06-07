@@ -9,7 +9,6 @@
         <th></th>
         <th class="text-left">Away</th>
         <th class="text-center">Score</th>
-        <th></th>
       </tr>
       <tbody>
         <%= for game <- games_in_round do %>
@@ -17,9 +16,12 @@
             <td class="text-right"><%= game.home_team.name %></td>
             <td class="text-center">vs</td>
             <td class="text-left"><%= game.away_team.name %></td>
-            <td class="text-center"><%= game.home_score %> - <%= game.away_score %></td>
-            <td class="text-right">
-              <%= link "Edit", to: game_path(@conn, :edit, game), class: "btn btn-default btn-xs" %>
+            <td class="text-center">
+              <%= if is_nil(game.home_score) || is_nil(game.away_score) do %>
+                <%= link "Report Score", to: game_path(@conn, :edit, game), class: "btn btn-default btn-xs" %>
+              <% else %>
+                <%= game.home_score %> - <%= game.away_score %>
+              <% end %>
             </td>
           </tr>
         <% end %>
