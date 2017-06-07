@@ -66,8 +66,9 @@
     <div class="table-responsive">
       <table class="table table-condensed table-striped">
         <tbody>
-          <%= for {_round, location, opponent, score, opponent_score} <- @games do %>
+          <%= for {round, location, opponent, score, opponent_score} <- @games do %>
           <tr>
+            <td><%= round %></td>
             <td><%= location %> <%= opponent %></td>
             <td class="text-center"><%= score %> - <%= opponent_score %></td>
           </tr>
