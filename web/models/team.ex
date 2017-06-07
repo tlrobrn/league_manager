@@ -50,25 +50,48 @@ defmodule LeagueManager.Team do
 
   defp record_query do
     """
-    SELECT
-      records.*,
-      records.goals_for - records.goals_against AS goal_differential,
-      records.draws + 3 * records.wins AS points
-    FROM (
+    WITH home_records AS (
       SELECT
-        teams.id AS team_id,
-        teams.name AS team_name,
-        COUNT(home_games.id) + COUNT(away_games.id) AS matches_played,
-        SUM(CASE WHEN home_games.home_score > home_games.away_score THEN 1 ELSE 0 END) + SUM(CASE WHEN away_games.away_score > away_games.home_score THEN 1 ELSE 0 END) AS wins,
-        SUM(CASE WHEN home_games.home_score < home_games.away_score THEN 1 ELSE 0 END) + SUM(CASE WHEN away_games.away_score < away_games.home_score THEN 1 ELSE 0 END) AS losses,
-        SUM(CASE WHEN home_games.home_score = home_games.away_score THEN 1 ELSE 0 END) + SUM(CASE WHEN away_games.away_score = away_games.home_score THEN 1 ELSE 0 END) AS draws,
-        COALESCE(SUM(home_games.home_score), 0) + COALESCE(SUM(away_games.away_score), 0) AS goals_for,
-        COALESCE(SUM(home_games.away_score), 0) + COALESCE(SUM(away_games.home_score), 0) AS goals_against
+        teams.id,
+        COUNT(games.id) AS matches_played,
+        SUM(CASE WHEN games.home_score > games.away_score THEN 1 ELSE 0 END) AS wins,
+        SUM(CASE WHEN games.home_score < games.away_score THEN 1 ELSE 0 END) AS losses,
+        SUM(CASE WHEN games.home_score = games.away_score THEN 1 ELSE 0 END) AS draws,
+        SUM(games.home_score) AS goals_for,
+        SUM(games.away_score) AS goals_against,
+        SUM(games.home_score - games.away_score) AS goal_differential
       FROM teams
-      LEFT OUTER JOIN games AS home_games ON teams.id = home_games.home_team_id AND home_games.home_score IS NOT NULL
-      LEFT OUTER JOIN games AS away_games ON teams.id = away_games.away_team_id AND away_games.away_score IS NOT NULL
-      GROUP BY teams.id, teams.name
-    ) records
+      INNER JOIN games ON teams.id = games.home_team_id AND games.home_score IS NOT NULL
+      GROUP BY teams.id
+    ),
+    away_records AS (
+      SELECT
+        teams.id,
+        COUNT(games.id) AS matches_played,
+        SUM(CASE WHEN games.away_score > games.home_score THEN 1 ELSE 0 END) AS wins,
+        SUM(CASE WHEN games.away_score < games.home_score THEN 1 ELSE 0 END) AS losses,
+        SUM(CASE WHEN games.away_score = games.home_score THEN 1 ELSE 0 END) AS draws,
+        SUM(games.away_score) AS goals_for,
+        SUM(games.home_score) AS goals_against,
+        SUM(games.away_score - games.home_score) AS goal_differential
+      FROM teams
+      INNER JOIN games ON teams.id = games.away_team_id AND games.away_score IS NOT NULL
+      GROUP BY teams.id
+    )
+    SELECT
+      teams.id AS team_id,
+      teams.name AS team_name,
+      COALESCE(home_records.matches_played, 0) + COALESCE(away_records.matches_played, 0) AS matches_played,
+      COALESCE(home_records.wins, 0) + COALESCE(away_records.wins, 0) AS wins,
+      COALESCE(home_records.losses, 0) + COALESCE(away_records.losses, 0) AS losses,
+      COALESCE(home_records.draws, 0) + COALESCE(away_records.draws, 0) AS draws,
+      COALESCE(home_records.goals_for, 0) + COALESCE(away_records.goals_for, 0) AS goals_for,
+      COALESCE(home_records.goals_against, 0) + COALESCE(away_records.goals_against, 0) AS goals_against,
+      COALESCE(home_records.goal_differential, 0) + COALESCE(away_records.goal_differential, 0) AS goal_differential,
+      COALESCE(home_records.draws, 0) + COALESCE(away_records.draws, 0) + 3 * (COALESCE(home_records.wins, 0) + COALESCE(away_records.wins, 0)) AS points
+    FROM teams
+    LEFT OUTER JOIN home_records ON teams.id = home_records.id
+    LEFT OUTER JOIN away_records ON teams.id = away_records.id
     ORDER BY
       points DESC,
       goal_differential DESC,
