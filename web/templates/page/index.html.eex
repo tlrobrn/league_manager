@@ -18,15 +18,18 @@
           </tr>
         </thead>
         <tbody>
-          <%= for {{{team, potential_points}, record}, position} <- Stream.with_index(@records, 1) do %>
-            <%= if potential_points + record.points < @leader_points do %>
+          <%= for {{{clinched, eliminated}, {{team, _}, record}}, position} <- @records |> league_table |> Stream.with_index(1) do %>
+            <%= if eliminated do %>
               <tr class="eliminated">
             <% else %>
                 <tr>
             <% end %>
             <td class="text-center">
-              <%= if @clinched_league && position == 1 do %>
-                <img src="<%= static_path(@conn, "/images/trophy.svg") %>" height="16" width="16" />
+              <%= if clinched do %>
+                <%= if position == 1 do %> <img src="<%= static_path(@conn, "/images/trophy.svg") %>" height="16" width="16" /> <% end %>
+                <%= if position == 2 do %> <img src="<%= static_path(@conn, "/images/silver-medal.svg") %>" height="16" width="16" /> <% end %>
+                <%= if position == 3 do %> <img src="<%= static_path(@conn, "/images/bronze-medal.svg") %>" height="16" width="16" /> <% end %>
+                <%= if position > 3 do %> <%= position %> <% end %>
               <% else %>
                 <%= position %>
               <% end %>
