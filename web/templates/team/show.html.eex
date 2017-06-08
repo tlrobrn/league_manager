@@ -73,6 +73,7 @@
           <tr>
             <th class="text-center">Round</th>
             <th>Opponent</th>
+            <th></th>
             <th class="text-center">Score</th>
           </tr>
         </thead>
@@ -81,6 +82,19 @@
           <tr>
             <td class="text-center"><%= round %></td>
             <td><%= location %> <%= link(opponent.name, to: team_path(@conn, :show, opponent)) %></td>
+            <td class="text-right">
+              <%= if !is_nil(score) do %>
+              <%= if score > opponent_score do %>
+                <span class="win">W</span>
+              <% else %>
+                <%= if score < opponent_score do %>
+                  <span class="loss">L</span>
+                <% else %>
+                  <span class="draw">D</span>
+                <% end %>
+              <% end %>
+              <% end %>
+            </td>
             <td class="text-center"><%= score %> - <%= opponent_score %></td>
           </tr>
           <% end %>

@@ -39,3 +39,15 @@ body {
 .primary {
     font-weight: bolder;
 }
+
+.win {
+    color: green;
+}
+
+.loss {
+    color: red;
+}
+
+.draw {
+    color: black;
+}
