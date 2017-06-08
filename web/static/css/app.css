@@ -20,7 +20,8 @@ body {
 }
 
 .cutoff > td {
-    border-top: red 2px solid !important;
+    border-top: black 2px solid !important;
+    color: #777;
 }
 
 .cutoff ~ .cutoff > td {
