@@ -20,7 +20,7 @@
         <tbody>
           <%= for {{{team, potential_points}, record}, position} <- Stream.with_index(@records, 1) do %>
             <%= if potential_points + record.points < @target_points do %>
-              <tr class="cutoff">
+              <tr class="eliminated">
             <% else %>
                 <tr>
             <% end %>

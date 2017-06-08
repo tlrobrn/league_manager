@@ -19,11 +19,11 @@ body {
     padding-bottom: 10px;
 }
 
-.cutoff > td {
+.eliminated > td {
     border-top: black 2px solid !important;
     color: #777;
 }
 
-.cutoff ~ .cutoff > td {
+.eliminated ~ .eliminated > td {
     border-top: 1px solid #ddd !important;
 }
