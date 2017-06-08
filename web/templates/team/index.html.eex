@@ -1,32 +1,36 @@
 <h2>Teams</h2>
 
-<table class="table table-condensed table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th>Name</th>
-      <th>Players</th>
+<div class="table-responsive">
+  <table class="table table-condensed table-striped">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th colspan="3" class="text-center">Players</th>
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for team <- @teams do %>
-    <tr>
-      <td>
-        <img src="<%= LeagueManager.Logo.url({team.logo, team}) %>" height="32" width="32" alt="" />
-      </td>
-      <td><%= team.name %></td>
-      <td><%= player_names(team) %></td>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for team <- @teams do %>
+        <tr>
+          <td>
+            <img src="<%= LeagueManager.Logo.url({team.logo, team}) %>" height="32" width="32" alt="" />
+          </td>
+          <td><%= team.name %></td>
+          <td class="text-right"><%= first_player(team) %></td>
+          <td class="text-center">and</td>
+          <td><%= second_player(team) %></td>
 
-      <td class="text-right">
-        <%= link "Details", to: team_path(@conn, :show, team), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: team_path(@conn, :edit, team), class: "btn btn-default btn-xs" %>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+          <td class="text-right">
+            <%= link "Details", to: team_path(@conn, :show, team), class: "btn btn-default btn-xs" %>
+            <%= link "Edit", to: team_path(@conn, :edit, team), class: "btn btn-default btn-xs" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
 <%= if @registration_enabled do %>
   <%= link "Register", to: team_path(@conn, :new) %>

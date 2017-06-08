@@ -3,13 +3,15 @@ defmodule LeagueManager.TeamView do
 
   alias LeagueManager.{Player, Team}
 
-  def player_names(%Team{players: players}) do
-    players
-    |> Stream.map(&display_name/1)
-    |> Enum.join(", ")
+  def first_player(%Team{players: [player, _]}) do
+    display_name(player)
+  end
+
+  def second_player(%Team{players: [_, player]}) do
+    display_name(player)
   end
 
   defp display_name(%Player{first_name: first_name, last_name: last_name}) do
-    "#{String.first(first_name)}. #{last_name}"
+    "#{first_name} #{last_name}"
   end
 end
