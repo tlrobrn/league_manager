@@ -80,7 +80,7 @@
           <%= for {round, location, opponent, score, opponent_score} <- @games do %>
           <tr>
             <td class="text-center"><%= round %></td>
-            <td><%= location %> <%= opponent %></td>
+            <td><%= location %> <%= link(opponent.name, to: team_path(@conn, :show, opponent)) %></td>
             <td class="text-center"><%= score %> - <%= opponent_score %></td>
           </tr>
           <% end %>

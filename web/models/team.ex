@@ -33,10 +33,10 @@ defmodule LeagueManager.Team do
   def games(struct) do
     team = LeagueManager.Repo.preload(struct, [home_games: :away_team, away_games: :home_team])
     home_data = team.home_games
-    |> Stream.map(fn game -> {game.round, "vs", game.away_team.name, game.home_score, game.away_score} end)
+    |> Stream.map(fn game -> {game.round, "vs", game.away_team, game.home_score, game.away_score} end)
 
     away_data = team.away_games
-    |> Stream.map(fn game -> {game.round, "@", game.home_team.name, game.away_score, game.home_score} end)
+    |> Stream.map(fn game -> {game.round, "@", game.home_team, game.away_score, game.home_score} end)
 
     Stream.concat(home_data, away_data) |> Enum.sort_by(fn {round, _, _, _, _} -> round end)
   end
