@@ -14,9 +14,11 @@
 
   <div class="form-grop">
     <%= label f, :logo, "Logo", class: "control-label" %>
-    <div>
-      <img src="<%= LeagueManager.Logo.url({@team.logo, @team}) %>" />
-    </div>
+    <%= if @team do %>
+      <div>
+        <img src="<%= LeagueManager.Logo.url({@team.logo, @team}) %>" />
+      </div>
+    <% end %>
     <%= file_input f, :logo, class: "form-control" %>
     <%= error_tag f, :logo %>
     <hr/>

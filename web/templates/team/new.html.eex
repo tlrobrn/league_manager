@@ -1,6 +1,6 @@
 <h2>Register Team</h2>
 
-<%= render "form.html", changeset: @changeset,
+<%= render "form.html", team: nil, changeset: @changeset,
                         action: team_path(@conn, :create) %>
 
 <%= link "Teams", to: team_path(@conn, :index) %>
