@@ -27,3 +27,11 @@ body {
 .eliminated ~ .eliminated > td {
     border-top: 1px solid #ddd !important;
 }
+
+.attribution {
+    padding-bottom: 8px;
+}
+
+.attribution > img {
+    padding-right: 4px;
+}
