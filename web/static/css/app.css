@@ -14,3 +14,7 @@ body {
 .caption-below {
     caption-side: bottom;
 }
+
+.icon-label {
+    padding-bottom: 10px;
+}
