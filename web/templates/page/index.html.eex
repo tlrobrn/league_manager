@@ -88,12 +88,26 @@
         </div>
       <% end %>
     <% else %>
-      <div class="col-md-4"></div>
-      <div class="col-md-4">
-        <%= link("Register Team", to: team_path(@conn, :new), class: "btn btn-default btn-block") %>
-        <%= link("Schedule Season", to: page_path(@conn, :schedule), method: :post, data: [confirm: "This closes registration!"], class: "btn btn-warning btn-block") %>
-      </div>
-      <div class="col-md-4"></div>
+      <%= if @season_complete do %>
+        <% team = champion(@records) %>
+        <div class="col-md-12 text-center">
+          <div>
+            <img src="<%= static_path(@conn, "/images/trophy.svg") %>" height="64" width="64" />
+            <span class="champion"><%= team.name %></span>
+            <img src="<%= static_path(@conn, "/images/trophy.svg") %>" height="64" width="64" />
+          </div>
+          <div>
+            <img src="<%= LeagueManager.Logo.url({team.logo, team}) %>" height="64" width="64" />
+          </div>
+        </div>
+      <% else %>
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+          <%= link("Register Team", to: team_path(@conn, :new), class: "btn btn-default btn-block") %>
+          <%= link("Schedule Season", to: page_path(@conn, :schedule), method: :post, data: [confirm: "This closes registration!"], class: "btn btn-warning btn-block") %>
+        </div>
+        <div class="col-md-4"></div>
+      <% end %>
     <% end %>
   </div>
 </div>

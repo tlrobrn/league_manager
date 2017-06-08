@@ -17,6 +17,11 @@ defmodule LeagueManager.PageView do
     |> Stream.zip(data)
   end
 
+  def champion([record | _]) do
+    {{team, _}, _} = record
+    team
+  end
+
   defp get_current_points({{_team, _potential_points}, %Record{points: points}}), do: points
 
   defp get_potential_total_points({{_team, potential_points}, %Record{points: points}}), do: potential_points + points

@@ -4,7 +4,8 @@ defmodule LeagueManager.PageController do
   def index(conn, _params) do
     games = LeagueManager.Game.current_games()
     records = LeagueManager.Team.records_with_teams_and_potential_points() |> Enum.to_list
-    render(conn, "index.html", games: games, records: records)
+    season_complete = length(games) == 0 && Repo.aggregate(LeagueManager.Game, :count, :id) > 0
+    render(conn, "index.html", games: games, records: records, season_complete: season_complete)
   end
 
   def schedule(conn, _params) do

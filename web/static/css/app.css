@@ -51,3 +51,7 @@ body {
 .draw {
     color: black;
 }
+
+.champion {
+    font-size: 32px;
+}
