@@ -28,4 +28,6 @@
   </tbody>
 </table>
 
-<%= link "Register", to: team_path(@conn, :new) %>
+<%= if @registration_enabled do %>
+  <%= link "Register", to: team_path(@conn, :new) %>
+<% end %>

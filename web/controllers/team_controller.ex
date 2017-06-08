@@ -1,11 +1,12 @@
 defmodule LeagueManager.TeamController do
   use LeagueManager.Web, :controller
 
-  alias LeagueManager.{Player, Team}
+  alias LeagueManager.{Game, Player, Team}
 
   def index(conn, _params) do
     teams = Team.sorted_by_name_with_players() |> Repo.all
-    render(conn, "index.html", teams: teams)
+    registration_enabled = Repo.aggregate(Game, :count, :id) == 0
+    render(conn, "index.html", teams: teams, registration_enabled: registration_enabled)
   end
 
   def new(conn, _params) do
