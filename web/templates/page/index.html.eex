@@ -14,7 +14,7 @@
             <th class="text-center">GF</th>
             <th class="text-center">GA</th>
             <th class="text-center">GD</th>
-            <th class="text-center">PTS</th>
+            <th class="text-center primary">PTS</th>
           </tr>
         </thead>
         <tbody>
@@ -42,7 +42,7 @@
             <td class="text-center"><%= record.goals_for %></td>
             <td class="text-center"><%= record.goals_against %></td>
             <td class="text-center"><%= record.goal_differential %></td>
-            <td class="text-center"><%= record.points %></td>
+            <td class="text-center primary"><%= record.points %></td>
                 </tr>
           <% end %>
         </tbody>

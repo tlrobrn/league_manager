@@ -35,3 +35,7 @@ body {
 .attribution > img {
     padding-right: 4px;
 }
+
+.primary {
+    font-weight: bolder;
+}
