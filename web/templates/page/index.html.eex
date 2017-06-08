@@ -18,8 +18,12 @@
           </tr>
         </thead>
         <tbody>
-          <%= for {{team, record}, position} <- Stream.with_index(@records, 1) do %>
-            <tr>
+          <%= for {{{team, potential_points}, record}, position} <- Stream.with_index(@records, 1) do %>
+            <%= if potential_points + record.points < @target_points do %>
+              <tr class="cutoff">
+            <% else %>
+                <tr>
+            <% end %>
               <td class="text-center"><%= position %></td>
               <td>
                 <img src="<%= LeagueManager.Logo.url({team.logo, team}) %>" height="16" width="16" />

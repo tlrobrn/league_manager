@@ -18,3 +18,11 @@ body {
 .icon-label {
     padding-bottom: 10px;
 }
+
+.cutoff > td {
+    border-top: red 2px solid !important;
+}
+
+.cutoff ~ .cutoff > td {
+    border-top: 1px solid #ddd !important;
+}
