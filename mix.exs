@@ -35,7 +35,7 @@ defmodule LeagueManager.Mixfile do
      {:arc_ecto, "~> 0.7.0"},
      {:ex_aws, "~> 1.1"},
      {:hackney, "~> 1.6"},
-     {:poison, "~> 3.1"},
+     {:poison, "~> 2.2"},
      {:sweet_xml, "~> 0.6"},
      {:phoenix_pubsub, "~> 1.0"},
      {:phoenix_ecto, "~> 3.0"},
