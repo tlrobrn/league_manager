@@ -2,6 +2,12 @@ defmodule LeagueManager.PageView do
   use LeagueManager.Web, :view
   alias LeagueManager.Team.Record
 
+  def league_table(data) when length(data) < 3 do
+    clinched = data |> Stream.map(fn _ -> false end)
+    eliminated = data |> Stream.map(fn _ -> false end)
+    Stream.zip(clinched, eliminated) |> Stream.zip(data)
+  end
+
   def league_table(data) do
     [_first, _second, third | _others] = data
     third_place_minimum = get_current_points(third)
