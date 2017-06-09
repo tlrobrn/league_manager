@@ -19,6 +19,15 @@ config :league_manager, LeagueManager.Endpoint,
 # Do not print debug messages in production
 config :logger, level: :info
 
+# Configure your database
+config :league_manager, LeagueManager.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  username: System.get_env("PG_USERNAME"),
+  password: System.get_env("PG_PASSWORD"),
+  hostname: System.get_env("PG_HOST"),
+  database: "league_manager_prod",
+  pool_size: 20
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key
@@ -58,4 +67,4 @@ config :logger, level: :info
 
 # Finally import the config/prod.secret.exs
 # which should be versioned separately.
-import_config "prod.secret.exs"
+#import_config "prod.secret.exs"
