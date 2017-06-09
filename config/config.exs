@@ -25,7 +25,7 @@ config :logger, :console,
 # Arc (image handling)
 config :arc,
   storage: Arc.Storage.S3,
-  bucket: {:system, "foos-summer-league-2017-06-09"}
+  bucket: "foos-summer-league-2017-06-09"
 
 config :ex_aws,
   access_key_id: [{:system, "AWS_ACCESS_KEY_ID"}, :instance_role],
