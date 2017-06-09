@@ -30,8 +30,15 @@ service :postgres do
 end
 
 service :league_manager do
-  image LeagueManager.app_image
+  image LeagueManager.image_repo
   mount_local_source dest: "/app"
+  env "MIX_ENV", "dev"
+  env "PORT", "4000"
+  env "PG_HOST", "postgres"
+  env "PG_USERNAME", "postgres"
+  env "PG_PASSWORD", "postgres"
+
+  port '"4000:4000"'
 end
 
 job build: [:league_manager] do
@@ -44,7 +51,7 @@ job build: [:league_manager] do
   docker_compose.pull("--ignore-pull-failures")
 
   begin
-    docker_compose.run(false)
+    docker_compose.run
     docker_compose.commit(league_manager, LeagueManager.app_image)
     Drake.shell "docker", "tag", LeagueManager.app_image, LeagueManager.app_image("latest")
   ensure
@@ -61,14 +68,13 @@ end
 job migrate: [:league_manager, :postgres] do
   docker_compose = league_manager
     .link(:league_manager_db, postgres)
-    .command("mix ecto.create")
     .command("mix ecto.migrate")
     .compose
 
   docker_compose.pull("--ignore-pull-failures")
 
   begin
-    docker_compose.run(false)
+    docker_compose.run
     docker_compose.commit(postgres, LeagueManager.database_image_tag)
     Drake.shell "docker", "push", LeagueManager.database_image_tag
   ensure
