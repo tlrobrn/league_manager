@@ -19,7 +19,7 @@ defmodule LeagueManager.Mixfile do
   def application do
     [mod: {LeagueManager, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :arc_ecto]]
+                    :phoenix_ecto, :postgrex, :arc_ecto, :ex_aws, :hackney, :poison]]
   end
 
   # Specifies which paths to compile per environment.
@@ -33,6 +33,10 @@ defmodule LeagueManager.Mixfile do
     [{:phoenix, "~> 1.2.4"},
      {:arc, "~> 0.8.0"},
      {:arc_ecto, "~> 0.7.0"},
+     {:ex_aws, "~> 1.1"},
+     {:hackney, "~> 1.6"},
+     {:poison, "~> 3.1"},
+     {:sweet_xml, "~> 0.6"},
      {:phoenix_pubsub, "~> 1.0"},
      {:phoenix_ecto, "~> 3.0"},
      {:postgrex, ">= 0.0.0"},
