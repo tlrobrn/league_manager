@@ -31,6 +31,7 @@ end
 
 service :league_manager do
   image LeagueManager.app_image
+  mount_local_source dest: "/app"
 end
 
 job build: [:league_manager] do
@@ -40,7 +41,8 @@ job build: [:league_manager] do
     .command("npm install")
     .compose
 
-  docker_compose.pull
+  docker_compose.pull("--ignore-pull-failures")
+
   begin
     docker_compose.run(false)
     docker_compose.commit(league_manager, LeagueManager.app_image)
@@ -63,7 +65,7 @@ job migrate: [:league_manager, :postgres] do
     .command("mix ecto.migrate")
     .compose
 
-  docker_compose.pull
+  docker_compose.pull("--ignore-pull-failures")
 
   begin
     docker_compose.run(false)
