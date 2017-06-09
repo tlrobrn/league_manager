@@ -1,0 +1,76 @@
+# vim: ft=ruby
+# frozen_string_literal: true
+
+module LeagueManager
+  class << self
+    def revision
+      @revision ||= Drake.shell("git", "rev-parse", "--short", "HEAD")
+    end
+
+    def image_repo
+      "dockerhub.braintree.tools/taylor/league_manager"
+    end
+
+    def app_image(tag = revision)
+      "#{image_repo}:#{tag}"
+    end
+
+    def migrations_md5
+      @migrations_md5 ||= Drake.dir_md5sum("priv/repo/migrations/*.exs")
+    end
+
+    def database_image_tag
+      "#{image_repo}-postgres/schema:#{migrations_md5}"
+    end
+  end
+end
+
+service :postgres do
+  image "dockerhub.braintree.tools/bt/postgres:9.6"
+end
+
+service :league_manager do
+  image LeagueManager.app_image
+end
+
+job build: [:league_manager] do
+  docker_compose = league_manager
+    .command("mix do deps.get, compile")
+    .command("npm config set strict-ssl false")
+    .command("npm install")
+    .compose
+
+  docker_compose.pull
+  begin
+    docker_compose.run(false)
+    docker_compose.commit(league_manager, LeagueManager.app_image)
+    Drake.shell "docker", "tag", LeagueManager.app_image, LeagueManager.app_image("latest")
+  ensure
+    docker_compose.stop
+    docker_compose.rm
+  end
+end
+
+job :push do
+  Drake.shell "docker", "push", LeagueManager.app_image
+  Drake.shell "docker", "push", LeagueManager.app_image("latest")
+end
+
+job migrate: [:league_manager, :postgres] do
+  docker_compose = league_manager
+    .link(:league_manager_db, postgres)
+    .command("mix ecto.create")
+    .command("mix ecto.migrate")
+    .compose
+
+  docker_compose.pull
+
+  begin
+    docker_compose.run(false)
+    docker_compose.commit(postgres, LeagueManager.database_image_tag)
+    Drake.shell "docker", "push", LeagueManager.database_image_tag
+  ensure
+    docker_compose.stop
+    docker_compose.rm
+  end
+end
