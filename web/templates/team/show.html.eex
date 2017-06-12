@@ -4,7 +4,7 @@
     <%= link "Edit", to: team_path(@conn, :edit, @team) %>
   </div>
   <div class="col-md-6">
-    <img src="<%= image_url(@team) %>" />
+    <img src="<%= image_url(@team) %>" height="256" width="256"/>
   </div>
 </div>
 
