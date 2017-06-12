@@ -52,6 +52,7 @@ defmodule LeagueManager.Web do
       import LeagueManager.Router.Helpers
       import LeagueManager.ErrorHelpers
       import LeagueManager.Gettext
+      import LeagueManager.ViewHelper
     end
   end
 

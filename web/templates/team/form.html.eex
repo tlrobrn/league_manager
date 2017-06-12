@@ -16,7 +16,7 @@
     <%= label f, :logo, "Logo", class: "control-label" %>
     <%= if @team do %>
       <div>
-        <img src="<%= LeagueManager.Logo.url({@team.logo, @team}) %>" />
+        <img src="<%= image_url(@team) %>" />
       </div>
     <% end %>
     <%= file_input f, :logo, class: "form-control" %>

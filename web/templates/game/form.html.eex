@@ -7,7 +7,7 @@
 
 <div class="form-group">
   <div class="icon-label">
-    <img src="<%= LeagueManager.Logo.url({@game.home_team.logo, @game.home_team}) %>" height="32" width="32" />
+    <img src="<%= image_url(game.home_team) %>" height="32" width="32" />
     <%= label f, :home_score, @game.home_team.name, class: "control-label" %>
   </div>
   <%= number_input f, :home_score, class: "form-control", min: 0 %>
@@ -18,7 +18,7 @@
 
 <div class="form-group">
   <div class="icon-label">
-    <img src="<%= LeagueManager.Logo.url({@game.away_team.logo, @game.away_team}) %>" height="32" width="32" />
+    <img src="<%= image_url(game.away_team) %>" height="32" width="32" />
     <%= label f, :away_score, @game.away_team.name, class: "control-label" %>
   </div>
   <%= number_input f, :away_score, class: "form-control", min: 0 %>

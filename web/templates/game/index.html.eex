@@ -15,11 +15,11 @@
           <tr>
             <td class="text-right">
               <%= game.home_team.name %>
-                <img src="<%= LeagueManager.Logo.url({game.home_team.logo, game.home_team}) %>" height="16" width="16" />
+                <img src="<%= image_url(game.home_team) %>" height="16" width="16" />
             </td>
             <td class="text-center">vs</td>
             <td class="text-left">
-                <img src="<%= LeagueManager.Logo.url({game.away_team.logo, game.away_team}) %>" height="16" width="16" />
+                <img src="<%= image_url(game.away_team) %>" height="16" width="16" />
                 <%= game.away_team.name %>
             </td>
             <td class="text-center">

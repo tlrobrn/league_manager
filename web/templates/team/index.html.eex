@@ -15,7 +15,7 @@
       <%= for team <- @teams do %>
         <tr>
           <td>
-            <img src="<%= LeagueManager.Logo.url({team.logo, team}) %>" height="32" width="32" alt="" />
+            <img src="<%= image_url(team) %>" height="32" width="32" alt="" />
           </td>
           <td><%= team.name %></td>
           <td class="text-right"><%= first_player(team) %></td>

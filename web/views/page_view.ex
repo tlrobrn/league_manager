@@ -28,12 +28,6 @@ defmodule LeagueManager.PageView do
     team
   end
 
-  def image_url(team = %Team{logo: logo}) do
-    uri = LeagueManager.Logo.url({logo, team}) |> URI.parse
-    [bucket, path] = uri.path |> String.trim_leading("/") |> String.split("/", parts: 2)
-    %URI{uri | path: "/" <> path, host: bucket <> "." <> uri.host} |> URI.to_string
-  end
-
   defp get_current_points({{_team, _potential_points}, %Record{points: points}}), do: points
 
   defp get_potential_total_points({{_team, potential_points}, %Record{points: points}}), do: potential_points + points

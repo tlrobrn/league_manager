@@ -4,7 +4,7 @@
     <%= link "Edit", to: team_path(@conn, :edit, @team) %>
   </div>
   <div class="col-md-6">
-    <img src="<%= LeagueManager.Logo.url({@team.logo, @team}) %>" />
+    <img src="<%= image_url(@team) %>" />
   </div>
 </div>
 
