@@ -21,11 +21,20 @@ config :league_manager, LeagueManager.Endpoint,
 # Do not print debug messages in production
 config :logger, level: :info
 
+# heroku
+#config :league_manager, LeagueManager.Repo,
+#  adapter: Ecto.Adapters.Postgres,
+#  url: System.get_env("DATABASE_URL"),
+#  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+#  ssl: true
+# docker
 config :league_manager, LeagueManager.Repo,
   adapter: Ecto.Adapters.Postgres,
-  url: System.get_env("DATABASE_URL"),
-  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
-  ssl: true
+  username: System.get_env("PG_USERNAME"),
+  password: System.get_env("PG_PASSWORD"),
+  hostname: System.get_env("PG_HOST"),
+  database: "league_manager_prod",
+  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "20"),
 
 # ## SSL Support
 #
