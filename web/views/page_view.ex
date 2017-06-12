@@ -1,6 +1,6 @@
 defmodule LeagueManager.PageView do
   use LeagueManager.Web, :view
-  alias LeagueManager.Team.Record
+  alias LeagueManager.{Team.Record, Team}
 
   def league_table(data) when length(data) < 3 do
     clinched = data |> Stream.map(fn _ -> false end)
@@ -26,6 +26,12 @@ defmodule LeagueManager.PageView do
   def champion([record | _]) do
     {{team, _}, _} = record
     team
+  end
+
+  def image_url(team = %Team{logo: logo}) do
+    uri = LeagueManager.Logo.url({logo, team}) |> URI.parse
+    [bucket, path] = uri.path |> String.trim_leading("/") |> String.split("/", parts: 2)
+    %URI{uri | path: "/" <> path, host: bucket <> "." <> uri.host} |> URI.to_string
   end
 
   defp get_current_points({{_team, _potential_points}, %Record{points: points}}), do: points

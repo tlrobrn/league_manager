@@ -35,7 +35,7 @@
               <% end %>
             </td>
             <td>
-              <img src="<%= LeagueManager.Logo.url({team.logo, team}) %>" height="16" width="16" />
+              <img src="<%= image_url(team) %>" height="16" width="16" />
               <%= link(record.team_name, to: team_path(@conn, :show, record.team_id)) %>
             </td>
             <td class="text-center"><%= record.matches_played %></td>
@@ -71,14 +71,14 @@
             <tbody>
               <tr>
                 <td>
-                  <img src="<%= LeagueManager.Logo.url({game.home_team.logo, game.home_team}) %>" height="16" width="16" />
+                  <img src="<%= image_url(game.home_team) %>" height="16" width="16" />
                   <%= game.home_team.name %>
                 </td>
                 <td class="text-center"><%= game.home_score || '-' %></td>
               </tr>
               <tr>
                 <td>
-                  <img src="<%= LeagueManager.Logo.url({game.away_team.logo, game.away_team}) %>" height="16" width="16" />
+                  <img src="<%= image_url(game.away_team) %>" height="16" width="16" />
                   <%= game.away_team.name %>
                 </td>
                 <td class="text-center"><%= game.away_score ||  '-' %></td>
@@ -97,7 +97,7 @@
             <img src="<%= static_path(@conn, "/images/trophy.svg") %>" height="64" width="64" />
           </div>
           <div>
-            <img src="<%= LeagueManager.Logo.url({team.logo, team}) %>" height="64" width="64" />
+            <img src="<%= image_url(team) %>" height="64" width="64" />
           </div>
         </div>
       <% else %>
