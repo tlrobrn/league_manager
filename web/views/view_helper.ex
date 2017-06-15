@@ -8,4 +8,16 @@ defmodule LeagueManager.ViewHelper do
         %URI{uri | path: "/" <> path, host: bucket <> "." <> uri.host} |> URI.to_string
     end
   end
+
+  def first_player(%LeagueManager.Team{players: [player, _]}) do
+    display_name(player)
+  end
+
+  def second_player(%LeagueManager.Team{players: [_, player]}) do
+    display_name(player)
+  end
+
+  defp display_name(%LeagueManager.Player{first_name: first_name, last_name: last_name}) do
+    "#{first_name} #{last_name}"
+  end
 end
