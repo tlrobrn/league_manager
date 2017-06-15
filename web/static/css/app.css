@@ -69,3 +69,7 @@ body {
 [data-toggle="tooltip"] {
     cursor: default;
 }
+
+a[data-toggle="tooltip"] {
+    cursor: auto;
+}

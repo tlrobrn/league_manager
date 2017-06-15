@@ -81,7 +81,7 @@
           <%= for {round, location, opponent, score, opponent_score} <- @games do %>
           <tr>
             <td class="text-center"><%= round %></td>
-            <td><%= location %> <%= link(opponent.name, to: team_path(@conn, :show, opponent)) %></td>
+            <td><%= location %> <%= link(opponent.name, to: team_path(@conn, :show, opponent), data: [toggle: "tooltip", placement: "right"], title: first_player(opponent) <> " & " <> second_player(opponent) ) %></td>
             <td class="text-right">
               <%= if !is_nil(score) do %>
               <%= if score > opponent_score do %>

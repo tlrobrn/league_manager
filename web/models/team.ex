@@ -31,7 +31,7 @@ defmodule LeagueManager.Team do
   end
 
   def games(struct) do
-    team = LeagueManager.Repo.preload(struct, [home_games: :away_team, away_games: :home_team])
+    team = LeagueManager.Repo.preload(struct, [home_games: [away_team: :players], away_games: [home_team: :players]])
     home_data = team.home_games
     |> Stream.map(fn game -> {game.round, "vs", game.away_team, game.home_score, game.away_score} end)
 
