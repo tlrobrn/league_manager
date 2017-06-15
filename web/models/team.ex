@@ -128,7 +128,8 @@ defmodule LeagueManager.Team do
       points DESC,
       goal_differential DESC,
       goals_for DESC,
-      wins DESC
+      wins DESC,
+      matches_played ASC
     """
   end
 end
