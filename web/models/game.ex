@@ -43,8 +43,8 @@ defmodule LeagueManager.Game do
     __MODULE__
     |> join(:inner, [g], r in subquery(current_round_query()), g.round == r.round)
     |> order_by([g, r], [g.round, g.id])
-    |> preload(:home_team)
-    |> preload(:away_team)
+    |> preload(home_team: :players)
+    |> preload(away_team: :players)
     |> Repo.all
   end
 

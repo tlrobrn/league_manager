@@ -15,5 +15,3 @@ RUN apt-get install -y -q nodejs
 
 # Set /app as workdir
 WORKDIR /app
-
-COPY . .

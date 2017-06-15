@@ -3,17 +3,19 @@ web:
   dockerfile: Dockerfile
   command: mix phoenix.server
   environment:
-    - MIX_ENV=prod
+    - MIX_ENV=dev
     - PORT=4000
     - PG_HOST=postgres
     - PG_USERNAME=postgres
     - PG_PASSWORD=postgres
+  volumes:
+    - .:/app
   ports:
     - "4000:4000"
   links:
     - postgres
 
 postgres:
-  image: dockerhub.braintree.tools/bt/postgres:9.6
+  image: postgres:9.6
   ports:
     - "5432"
