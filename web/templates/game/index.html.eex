@@ -14,13 +14,13 @@
         <%= for game <- games_in_round do %>
           <tr>
             <td class="text-right">
-              <%= game.home_team.name %>
+              <span data-toggle="tooltip" data-placement="left" title="<%= first_player(game.home_team) %> & <%= second_player(game.home_team) %>"><%= game.home_team.name %></span>
                 <img src="<%= image_url(game.home_team) %>" height="16" width="16" />
             </td>
             <td class="text-center">vs</td>
             <td class="text-left">
                 <img src="<%= image_url(game.away_team) %>" height="16" width="16" />
-                <%= game.away_team.name %>
+                <span data-toggle="tooltip" data-placement="right" title="<%= first_player(game.away_team) %> & <%= second_player(game.away_team) %>"><%= game.away_team.name %></span>
             </td>
             <td class="text-center">
               <%= if is_nil(game.home_score) || is_nil(game.away_score) do %>

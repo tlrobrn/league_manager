@@ -3,7 +3,7 @@ defmodule LeagueManager.GameController do
   alias LeagueManager.Game
 
   def index(conn, _params) do
-    games = Repo.all(Game) |> Repo.preload([:home_team, :away_team])
+    games = Repo.all(Game) |> Repo.preload([home_team: :players, away_team: :players])
     render(conn, "index.html", games: games)
   end
 
